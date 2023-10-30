@@ -5,13 +5,13 @@
 include 'connect.php';
 if(isset($_GET['delete'])){
     $delete_id=$_GET['delete'];
-    $delete_query=mysqli_query($conn, "Delete from `product` where id_product=$delete_id") or die ('Query falied');
+    $delete_query=mysqli_query($conn, "Delete from `client` where id_client=$delete_id") or die ('Query falied');
     if($delete_quary){
         echo "Product  delete";
-       header('location:view_product.php');
+       header('location:finally.php');
     }else{
         echo "Product not delete";
-        header('location:view_product.php');
+        header('location:finally.php');
     }
 }
 

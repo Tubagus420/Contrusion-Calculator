@@ -1,22 +1,21 @@
 <?php include 'connect.php';
 // update logic
-if(isset($_POST['update_product'])){
-    $update_product_id=$_POST['update_product_id'];
+if(isset($_POST['update_client'])){
+    $update_client_id=$_POST['update_client_id'];
     // echo $update_product_id;
-    $update_product_name=$_POST['update_product_name'];
+    $update_client_name=$_POST['update_client_name'];
     // echo $update_product_name;
-    $update_product_price=$_POST['update_product_price'];
-    $update_product_image=$_FILES['update_product_image']['name'];
-    $update_product_image_tmp_name=$_FILES['update_product_image']['tmp_name'];
-    $update_product_image_folder='images/'.$update_product_image;
-
+    $update_client_alamat=$_POST['update_client_alamat'];
+    $update_client_whatsapp=$_POST['update_client_whatsapp'];
+    $update_client_jenis_const=$_POST['update_client_jenis_const'];
+    $update_client_kebutuhan=$_POST['update_client_kebutuhan'];
+   
     // update query
-    $update_product=mysqli_query($conn,"Update `product` set 
-    name='$update_product_name',price='$update_product_price',image='$update_product_image' where id=$update_product_id");
-    if($update_product){
-        move_uploaded_file($update_product_image_tmp_name,
-        $update_product_image_folder);
-       header('location:view_product.php');
+    $update_client=mysqli_query($conn,"Update `client` set 
+    `nama`='$update_client_name',`alamat`='$update_client_alamat',`whatsapp`='$update_client_whatsapp',
+    `jenis const`='$update_client_jenis_const',`kebutuhan`='$update_client_kebutuhan' where `id_client`=$update_client_id");
+    if($update_client){
+       header('location:finally.php');
     }else {
         $display_message= "There is some error updating the product";
     }
@@ -54,7 +53,7 @@ if(isset($display_message)){
     if(isset($_GET['edit'])){
         $edit_id=$_GET['edit'];
         // echo $edit_id;
-        $edit_query=mysqli_query($conn,"select * from `product` where id_product=$edit_id");
+        $edit_query=mysqli_query($conn,"select * from `client` where id_client=$edit_id");
         if(mysqli_num_rows($edit_query)>0){
         $fetch_data=mysqli_fetch_assoc($edit_query);
                 // $row=$fetch_data['price'];
@@ -64,13 +63,14 @@ if(isset($display_message)){
             ?>
 <!-- form -->
 <form action="" method="post" enctype="multipart/form-data" class="update_product product_container_box">
-<img src="images/<?php echo $fetch_data['image']?>" alt="">
-<input type="hidden" value="<?php echo $fetch_data['id_product']?>" name="update_product_id">
-<input type="text" class="input_fields fields" required value="<?php echo $fetch_data['name']?>" name="update_product_name">
-<input type="number" class="input_fields fields" required value="<?php echo $fetch_data['price']?>" name="update_product_price">
-<input type="file" class="input_fields fields" required accept="image/png, image/jpg, image/jpeg" name="update_product_image">
+<input type="hidden" value="<?php echo $fetch_data['id_client']?>" name="update_client_id">
+<input type="text" class="input_fields fields" required value="<?php echo $fetch_data['nama']?>" name="update_client_name">
+<input type="text" class="input_fields fields" required value="<?php echo $fetch_data['alamat']?>" name="update_client_alamat">
+<input type="number" class="input_fields fields" required value="<?php echo $fetch_data['whatsapp']?>" name="update_client_whatsapp">
+<input type="text" class="input_fields fields" required value="<?php echo $fetch_data['jenis const']?>" name="update_client_jenis_const">
+<input type="text" class="input_fields fields" required value="<?php echo $fetch_data['kebutuhan']?>" name="update_client_kebutuhan">
 <div class="btns">
-    <input type="submit" class="edit_btn" value="Update Product" name="update_product">
+    <input type="submit" class="edit_btn" value="Update " name="update_client">
     <input type="reset" id="close-edit" value="Cancel" class="cancel_btn">
 </div>
 </form>

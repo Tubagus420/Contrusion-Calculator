@@ -17,6 +17,7 @@
             echo $row_count ?></sup></span></a>
             <!--<div id="menu-btn" class="fas fa-bars"></div>-->
             <nav class="navbar">
+            <a href="finally.php">Data Customer</a>
             <a href="admin/logout.php">Logout</a>
 
             </nav>

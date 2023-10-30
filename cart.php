@@ -6,7 +6,7 @@ if(isset($_POST['update_product_quantity'])){
     $update_id=$_POST['update_quantity_id'];
     // echo $update_id;
     // query
-    $update_quantity_query=mysqli_query($conn,"update `cart` set quantity=$update_value where id=$update_id");
+    $update_quantity_query=mysqli_query($conn,"update `cart` set quantity=$update_value where id_cart=$update_id");
    if($update_quantity_query){
     header('location:cart.php');
    }
@@ -15,7 +15,7 @@ if(isset($_POST['update_product_quantity'])){
 if(isset($_GET['remove'])){
     $remove_id=$_GET['remove'];
     // echo $remove_id;
-    mysqli_query($conn, "Delete from `cart` where id=$remove_id");
+    mysqli_query($conn, "Delete from `cart` where id_cart=$remove_id");
     header('localtion:cart.php');
 }
 
@@ -70,10 +70,10 @@ if(isset($_GET['delete_all'])){
                     <td>
                         <img src="images/<?php echo $fetch_cart_products['image']?>" alt="bata">
                     </td>
-                    <td>Rp<?php echo $fetch_cart_products['price']?></td>
+                    <td>Rp<?php echo $subtotal=number_format($fetch_cart_products['price'])?></td>
                     <td>
                         <form action="" method="post">
-                            <input type="hidden" value="<?php echo $fetch_cart_products['id']?>"
+                            <input type="hidden" value="<?php echo $fetch_cart_products['id_cart']?>"
                             name="update_quantity_id">
                         <div class="quantity_box">
                             <input type="number" min="1" value="<?php echo $fetch_cart_products['quantity']?>"
@@ -86,7 +86,7 @@ if(isset($_GET['delete_all'])){
                     <td>Rp<?php echo $subtotal=number_format($fetch_cart_products
                     ['price']*$fetch_cart_products['quantity'])?></td>
                     <td>
-                        <a href="cart.php?remove=<?php echo $fetch_cart_products['id']?>"
+                        <a href="cart.php?remove=<?php echo $fetch_cart_products['id_cart']?>"
                         onclick="return confirm('Are you sure you want to delete this item')">
                             <i class="fas fa-trash"></i>Remove
                         </a>
@@ -113,7 +113,7 @@ $num++;
 
             <?php
             if($grand_total>0){
-                echo  "<div class='table_bottom'>
+                echo "<div class='table_bottom'>
                 <a href='product.php' class='bottom_btn'>Continue shopping</a>
                 <h3 class='bottom_btn'>Grand total: Rp<span>$grand_total</span></h3>
                 <a href='checkout.php' class='bottom_btn'>Proses to checkout</a>
